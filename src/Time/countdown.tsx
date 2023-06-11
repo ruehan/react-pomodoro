@@ -14,6 +14,7 @@ type useCountdownParams = {
     seconds?: number
     format?: string
     onCompleted?: VoidFunction
+    stop? : boolean
 }
 
 const CountDown = ({
@@ -21,15 +22,14 @@ const CountDown = ({
     seconds = 0,
     format = "mm:ss",
     onCompleted,
+    stop = true,
 }: useCountdownParams = {}): CountDown => {
     const id = useRef(0)
 
-    // time
     const [remainingTime, setRemainingTime] = useState(
         calculateInitialTime({minutes, seconds}),
     )
 
-    // status
     const [isActive, setIsActive] = useState(false)
     const [isInactive, setIsInactive] = useState(true)
     const [isRunning, setIsRunning] = useState(false)
@@ -37,14 +37,16 @@ const CountDown = ({
 
     useEffect(
         () => {
-            id.current = window.setInterval(calculateRemainingTime, 1000)
+           if(stop !== true){
+                id.current = window.setInterval(calculateRemainingTime, 1000)
 
-            setIsActive(true)
-            setIsInactive(false)
-            setIsRunning(true)
-            setIsPaused(false)
+                setIsActive(true)
+                setIsInactive(false)
+                setIsRunning(true)
+                setIsPaused(false)
 
-            return () => window.clearInterval(id.current)
+                return () => window.clearInterval(id.current)
+            }
         },
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,6 +54,7 @@ const CountDown = ({
     )
 
     const calculateRemainingTime = () => {
+
         setRemainingTime(time => {
             if (time - 1000 <= 0) {
                 window.clearInterval(id.current)
@@ -67,6 +70,7 @@ const CountDown = ({
 
             return time - 1000
         })
+        
     }
 
     const pause = (): void => {
@@ -93,6 +97,7 @@ const CountDown = ({
         setIsInactive(false)
         setIsRunning(true)
         setIsPaused(false)
+
     }
 
     const reset = (time: Time = {minutes, seconds}) => {
@@ -103,6 +108,11 @@ const CountDown = ({
         setIsInactive(false)
         setIsRunning(true)
         setIsPaused(false)
+
+        setRemainingTime(calculateInitialTime(time))
+    }
+
+    const init= (time: Time = {minutes, seconds}) => {
 
         setRemainingTime(calculateInitialTime(time))
     }
@@ -118,6 +128,7 @@ const CountDown = ({
         pause,
         resume,
         reset,
+        init
     }
 
     return countdown

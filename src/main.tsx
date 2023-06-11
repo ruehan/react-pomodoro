@@ -8,12 +8,10 @@ import Home from "./components/Home";
 
 
 ReactDOM.render(
-  <React.StrictMode>
     <RecoilRoot>
       <ThemeProvider theme={darkTheme}>
         <Home />
       </ThemeProvider>
-    </RecoilRoot>
-  </React.StrictMode>,
+    </RecoilRoot>,
   document.getElementById("root")
 );
