@@ -113,7 +113,6 @@ const CountDown = ({
     }
 
     const init= (time: Time = {minutes, seconds}) => {
-
         setRemainingTime(calculateInitialTime(time))
     }
 

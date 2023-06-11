@@ -2,8 +2,6 @@ import { Outlet } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { isDarkAtom } from "./atoms";
-// import Character from "./pages/Character";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -61,8 +59,6 @@ const GlobalStyle = createGlobalStyle`
 
 `
 function Root() {
-
-  const isDark = useRecoilValue(isDarkAtom);
 
   return (
     <>

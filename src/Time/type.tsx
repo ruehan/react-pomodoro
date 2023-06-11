@@ -5,7 +5,6 @@ type Time = {
     seconds: number
 }
 
-
 type Countdown = {
     minutes: number
     seconds: number
