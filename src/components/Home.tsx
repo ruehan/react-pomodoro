@@ -75,7 +75,7 @@ const Btn = styled(motion.button)`
 `
 
 const Input = styled.input`
-  width: 200px;
+  /* width: 200px; */
   height: 30px;
   font-size: 20px;
   border-radius: 15px;
@@ -88,6 +88,9 @@ const InputBox = styled.div`
   position: fixed;
   top: 5%;
   left: 30%;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
   z-index: 100;
   
   button{
@@ -109,10 +112,7 @@ function Home() {
   const [seconds, setSeconds] = useState(0)
 
   function onClickInputBtn(){
-
-    // countdown.reset({minutes: Iminutes, seconds: Iseconds})
-    countdown.init({minutes: minutes, seconds: seconds})
-    // countdown.pause()
+    countdown.init({minutes: minutes , seconds: seconds})
   }
 
   function onChangeMinutes(event: React.ChangeEvent<HTMLInputElement>){
@@ -171,8 +171,6 @@ function Home() {
           {goal > 20 && <Confetti />}
           <AnimatePresence>
           <CountDownDiv>
-          
-
               <CountDownH1
               key={countdown.minutes + "m"}
               initial={{y: -150, opacity: 0}}
